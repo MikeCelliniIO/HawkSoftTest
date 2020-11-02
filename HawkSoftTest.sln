@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HawkSoftTest.Database", "HawkSoftTest.Database\HawkSoftTest.Database.sqlproj", "{561C6847-B883-47BD-930F-D35CA418F122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkSoftTest", "HawkSoftTest\HawkSoftTest.csproj", "{44605B9A-65AB-4F68-9C88-268D836331D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{561C6847-B883-47BD-930F-D35CA418F122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{561C6847-B883-47BD-930F-D35CA418F122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{561C6847-B883-47BD-930F-D35CA418F122}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{561C6847-B883-47BD-930F-D35CA418F122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{561C6847-B883-47BD-930F-D35CA418F122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{561C6847-B883-47BD-930F-D35CA418F122}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{44605B9A-65AB-4F68-9C88-268D836331D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44605B9A-65AB-4F68-9C88-268D836331D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44605B9A-65AB-4F68-9C88-268D836331D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44605B9A-65AB-4F68-9C88-268D836331D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F2109F2-823A-4E4B-8924-3D4D29C526E7}
+	EndGlobalSection
+EndGlobal
