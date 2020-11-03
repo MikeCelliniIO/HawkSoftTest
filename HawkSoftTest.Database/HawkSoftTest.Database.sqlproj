@@ -63,5 +63,6 @@
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\Contact.sql" />
     <Build Include="StoredProcedures\GetContactsForUser.sql" />
+    <Build Include="StoredProcedures\AddContact.sql" />
   </ItemGroup>
 </Project>

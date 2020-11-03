@@ -48,5 +48,19 @@ namespace HawkSoftTest.Controllers
                 return new EnumerableResult<Contact>() { Success = false, Message = "Oops, something went wrong!" };
             }
         }
+
+        [HttpPost]
+        public void Add(Contact contact)
+        {
+            try
+            {
+                ContactRepository.Add(contact);
+                //return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "");
+            }
+        }
     }
 }

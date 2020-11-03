@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AddContact } from './AddContact';
 
 export class Contacts extends Component {
   static displayName = Contacts.name;
@@ -27,8 +28,8 @@ export class Contacts extends Component {
 
     onChangeHandler(e) {
         this.setState({ filter: e.target.value, loading: true });
-        if (this.state.filter != "")
-            this.filterContacts();
+        if (e.target.value != "")
+            this.filterContacts(e.target.value);
         else
             this.populateContacts();
     }
@@ -39,25 +40,30 @@ export class Contacts extends Component {
         : Contacts.renderContactCards(this.state.contacts);
 
       return (
-          <div>
-              <div className="row">
-                  <div className="col-sm">
-                      <input type="text" name="filter" placeholder="Filter here..." value={this.state.filter} onChange={this.onChangeHandler.bind(this)} />
+          <div className="row">
+              <div className="col-md">
+                  <div className="row">
+                      <div className="col-sm">
+                          <input type="text" name="filter" placeholder="Filter here..." value={this.state.filter} onChange={this.onChangeHandler.bind(this)} />
+                      </div>
                   </div>
+                  {contents}
               </div>
-              {contents}
+              <div className="col-md">
+                  <AddContact postCallback={this.populateContacts.bind(this)} />
+              </div>
        </div>
     );
-  }
+    }
 
   async populateContacts() {
     const response = await fetch('contacts');
     const data = await response.json();
-    this.setState({ contacts: data.data, loading: false });
+    this.setState({ contacts: data.data, loading: false, filter: "" });
     }
 
-    async filterContacts() {
-        const response = await fetch('contacts/GetByFilter/' + this.state.filter);
+    async filterContacts(filter) {
+        const response = await fetch('contacts/GetByFilter/' + filter);
         const data = await response.json();
         this.setState({ contacts: data.data, loading: false });
     }

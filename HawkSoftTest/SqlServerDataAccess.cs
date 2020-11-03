@@ -52,5 +52,18 @@ namespace HawkSoftTest
             }
             return items;
         }
+
+        public int ExecuteNonQuery(string procedure, params SqlParameter[] sqlParameters)
+        {
+            using var conn = new SqlConnection(ConnectionString);
+            using var cmd = new SqlCommand(procedure, conn);
+
+            cmd.Parameters.AddRange(sqlParameters);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Connection.Open();
+
+            return cmd.ExecuteNonQuery();
+        }
     }
 }

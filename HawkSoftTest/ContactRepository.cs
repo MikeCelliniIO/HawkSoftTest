@@ -14,7 +14,12 @@ namespace HawkSoftTest
 
         public void Add(Contact entity)
         {
-            throw new NotImplementedException();
+            DataAccess.ExecuteNonQuery(
+                "AddContact",
+                new SqlParameter("@userId", 1),
+                new SqlParameter("@firstName", entity.FirstName),
+                new SqlParameter("@lastName", entity.LastName),
+                new SqlParameter("@email", entity.Email));
         }
 
         public void Delete(Contact entity)
