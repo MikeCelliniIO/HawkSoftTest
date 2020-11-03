@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,24 +12,24 @@ namespace HawkSoftTest
     {
         string ConnectionString { get; }
 
-        public SqlServerDataAccess(string connectionString)
+        public SqlServerDataAccess(IConfiguration configuration)
         {
-            ConnectionString = connectionString;
+            ConnectionString = configuration.GetConnectionString("HawkSoftTestDB");
         }
 
-        public List<T> ExecuteStoredProcedure<T>(string procedure, SqlParameterCollection parameters) where T : new()
+        public List<T> ExecuteStoredProcedure<T>(string procedure, params SqlParameter[] sqlParameters) where T : new()
         {
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var cmd = new SqlCommand(procedure))
-            {
-                cmd.Connection.Open();
+            using var conn = new SqlConnection(ConnectionString);
+            using var cmd = new SqlCommand(procedure, conn);
 
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var data = MapData<T>(reader);
-                    return data;
-                }
-            }
+            cmd.Parameters.AddRange(sqlParameters);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Connection.Open();
+
+            using var reader = cmd.ExecuteReader();
+            var data = MapData<T>(reader);
+            return data;
         }
 
         private List<T> MapData<T>(SqlDataReader reader) where T : new()

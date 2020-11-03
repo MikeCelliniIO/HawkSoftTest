@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace HawkSoftTest
 {
@@ -30,12 +29,13 @@ namespace HawkSoftTest
 
         public IEnumerable<Contact> GetAll()
         {
-            throw new NotImplementedException();
+            //TODO: We're gonna just throw in a single user id for now, we'll setup authentication later.
+            return DataAccess.ExecuteStoredProcedure<Contact>("GetContactsForUser", new SqlParameter("@userId", 1));
         }
 
-        public IEnumerable<Contact> GetAllBySearch(string criteria)
+        public IEnumerable<Contact> GetAllBySearch(string filter)
         {
-            throw new NotImplementedException();
+            return DataAccess.ExecuteStoredProcedure<Contact>("GetContactsForUser", new SqlParameter("@userId", 1), new SqlParameter("@filter", filter));
         }
     }
 }
