@@ -65,5 +65,9 @@
     <Build Include="StoredProcedures\GetContactsForUser.sql" />
     <Build Include="StoredProcedures\AddContact.sql" />
     <Build Include="StoredProcedures\DeleteContact.sql" />
+    <Build Include="StoredProcedures\EditContact.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

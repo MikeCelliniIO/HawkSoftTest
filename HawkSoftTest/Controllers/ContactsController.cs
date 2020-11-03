@@ -30,7 +30,7 @@ namespace HawkSoftTest.Controllers
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "");
+                Logger.LogError(ex, $"Failed to fetch contacts.");
                 return new EnumerableResult<Contact>() { Success = false, Message = "Oops, something went wrong!" };
             }
         }
@@ -44,12 +44,13 @@ namespace HawkSoftTest.Controllers
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "");
+                Logger.LogError(ex, $"Failed to fetch contacts filtered by '{filter}'.");
                 return new EnumerableResult<Contact>() { Success = false, Message = "Oops, something went wrong!" };
             }
         }
 
         [HttpPost]
+        [Route("[action]")]
         public bool Add(Contact contact)
         {
             try
@@ -60,6 +61,22 @@ namespace HawkSoftTest.Controllers
             catch (Exception ex)
             {
                 Logger.LogError(ex, "");
+                return false;
+            }
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public bool Edit(Contact contact)
+        {
+            try
+            {
+                ContactRepository.Edit(contact);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, $"Failed to update contact {contact.Id}.");
                 return false;
             }
         }

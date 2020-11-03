@@ -31,7 +31,13 @@ namespace HawkSoftTest
 
         public void Edit(Contact entity)
         {
-            throw new NotImplementedException();
+            DataAccess.ExecuteNonQuery(
+                "EditContact",
+                new SqlParameter("@contactId", entity.Id),
+                new SqlParameter("@firstName", entity.FirstName),
+                new SqlParameter("@lastName", entity.LastName),
+                new SqlParameter("@email", entity.Email),
+                new SqlParameter("@updateKey", entity.UpdateKey));
         }
 
         public IEnumerable<Contact> GetAll()

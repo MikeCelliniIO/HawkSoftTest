@@ -13,6 +13,7 @@
 	AddressState CHAR(2),
 	AddressZip5 SMALLINT,
 	AddressZip4 SMALLINT,
+	UpdateKey UNIQUEIDENTIFIER default NEWID() NOT NULL,
 	CONSTRAINT PK_Contact PRIMARY KEY (Id),
 	CONSTRAINT FK_User FOREIGN KEY (UserId) REFERENCES [User](Id)
 )

@@ -7,7 +7,8 @@ BEGIN
 		Id,
 		FirstName, 
 		LastName, 
-		Email 
+		Email,
+		UpdateKey
 	FROM Contact 
 	WHERE 
 		(
