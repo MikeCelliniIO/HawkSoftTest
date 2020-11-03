@@ -24,7 +24,9 @@ namespace HawkSoftTest
 
         public void Delete(Contact entity)
         {
-            throw new NotImplementedException();
+            DataAccess.ExecuteNonQuery(
+                "DeleteContact",
+                new SqlParameter("@contactId", entity.Id));
         }
 
         public void Edit(Contact entity)

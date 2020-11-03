@@ -50,16 +50,32 @@ namespace HawkSoftTest.Controllers
         }
 
         [HttpPost]
-        public void Add(Contact contact)
+        public bool Add(Contact contact)
         {
             try
             {
                 ContactRepository.Add(contact);
-                //return true;
+                return true;
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex, "");
+                return false;
+            }
+        }
+
+        [HttpDelete]
+        public bool Delete(Contact contact)
+        {
+            try
+            {
+                ContactRepository.Delete(contact);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, $"Failed to delete contact {contact.Id}.");
+                return false;
             }
         }
     }

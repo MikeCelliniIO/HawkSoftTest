@@ -51,11 +51,12 @@ export class AddContact extends Component {
         };
         try {
             const response = await fetch('contacts/', settings);
+            await response.json();
             this.setState({ firstName: '', lastName: '', email: '' });
             this.state.postCallback();
         }
         catch (ex) {
-
+            //Do something...
         }
     }
 

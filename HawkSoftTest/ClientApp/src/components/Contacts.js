@@ -6,38 +6,55 @@ export class Contacts extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { contacts: [], loading: true, filter: "" };
+      this.state = { contacts: [], loading: true, filter: "" };
+      this.timer = null;
+      this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
       this.populateContacts();
-  }
+    }
 
-  static renderContactCards(contacts) {
-      return (
-          contacts.map(contact => 
-              <div className="row" key={contact.lastName + contact.firstName}>
-                  <div className="col-sm">
-                      <h3>{contact.lastName}, {contact.firstName}</h3>
-                      {contact.email}
-                  </div>
-              </div>
-          )
-        );
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.filter !== this.state.filter) {
+            this.handleFilter();
+        }
     }
 
     onChangeHandler(e) {
-        this.setState({ filter: e.target.value, loading: true });
-        if (e.target.value != "")
-            this.filterContacts(e.target.value);
-        else
-            this.populateContacts();
+        this.setState({ filter: e.target.value });
+    }
+
+    handleDelete(e) {
+        this.deleteContact(e.target.value);
+    }
+
+    //Want to filter when user inputs into filter textbox, but prevent a trip on keystroke...
+    handleFilter = () => {
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+            if (this.state.filter != "")
+                this.filterContacts(this.state.filter);
+            else
+                this.populateContacts();
+        }, 1000);
     }
 
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-        : Contacts.renderContactCards(this.state.contacts);
+        : this.state.contacts.map(contact => 
+              <div className="row" key={contact.id}>
+                  <div className="col-sm">
+                      <h3>{contact.lastName}, {contact.firstName}</h3>
+                      {contact.email}
+                  </div>
+                  <div className="col-sm">
+                      <button className="btn btn-outline-primary btm-sm">Edit</button>
+                      <button className="btn btn-outline-danger btm-sm" value={contact.id} onClick={this.handleDelete}>Delete</button>
+                  </div>
+              </div>
+          )
 
       return (
           <div className="row">
@@ -67,4 +84,24 @@ export class Contacts extends Component {
         const data = await response.json();
         this.setState({ contacts: data.data, loading: false });
     }
+
+    async deleteContact(id) {
+        const settings = {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: parseInt(id) })
+        };
+        try {
+            const response = await fetch('contacts/', settings);
+            await response.json();
+            this.populateContacts();
+        }
+        catch (ex) {
+            //Do something...
+        }
+    }
+
 }
