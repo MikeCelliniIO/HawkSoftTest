@@ -22,6 +22,11 @@ namespace HawkSoftTest
         {
 
             services.AddControllersWithViews();
+            services.AddSingleton(Configuration);
+
+            services.AddScoped(typeof(IDataAccess), typeof(SqlServerDataAccess));
+            //A more complicated app might call for a repository-service pattern, this is probably overkill as it is.
+            services.AddScoped(typeof(IContactRepository), typeof(ContactRepository));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
